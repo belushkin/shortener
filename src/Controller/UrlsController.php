@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Url;
 use App\Form\UrlType;
-use App\Service\Shortener;
-use App\Service\ShortInterface;
-use Exception;
+use App\Service\UrlsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,23 +14,22 @@ class UrlsController extends AbstractController
 {
 
     /**
-     * @var ShortInterface
+     * @var UrlsManager
      */
-    private $shortener;
+    private $manager;
 
     /**
-     * @param Shortener $shortener
+     * @param UrlsManager $manager
      */
-    public function __construct(Shortener $shortener)
+    public function __construct(UrlsManager $manager)
     {
-        $this->shortener = $shortener;
+        $this->manager = $manager;
     }
 
     /**
      * @Route("/", name="urls")
      * @param Request $request
      * @return Response
-     * @throws Exception
      */
     public function index(Request $request)
     {
@@ -42,22 +39,12 @@ class UrlsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($url);
-            $entityManager->flush();
-
-            $url->setCode(
-                $this->shortener->short(
-                    $url->getId()
-                )
-            );
-            $entityManager->persist($url);
-            $entityManager->flush();
-
+            $this->manager->save($url);
             return $this->redirectToRoute("urls");
         }
         return $this->render('urls/index.html.twig', [
-            'urlsForm' => $form->createView()
+            'urlsForm'  => $form->createView(),
+            'urls'      => $this->manager->list()
         ]);
     }
 }
