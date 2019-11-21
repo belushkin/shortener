@@ -22,3 +22,8 @@ You are supposed to create a simple URL shortener (think: bit.ly )
 
 
 
+docker-compose exec web php bin/console make:entity
+docker-compose exec web php bin/console make:migration
+docker-compose exec web php bin/console doctrine:migrations:migrate
+
+INSERT INTO url (link, code, created) VALUES ("https:\/\/www.di.fm\/", null, "2019-11-21 17:03:02")

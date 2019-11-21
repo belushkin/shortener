@@ -3,7 +3,7 @@
 namespace App\Service\ShortEngine;
 
 use App\Service\ShortInterface;
-use phpDocumentor\Reflection\Types\Integer;
+
 
 class IdToUrl implements ShortInterface
 {
@@ -47,13 +47,13 @@ class IdToUrl implements ShortInterface
     /**
      * Takes id and short it to string
      *
-     * @param Integer $id
+     * @param int $id
      * @return string
      */
-    private function idToCode(Integer $id):string
+    private function idToCode(int $id):string
     {
         $code = '';
-        while ($id) {
+        while ((int)$id) {
             $code .= $this->map[$id%62];
             $id = $id/62;
         }

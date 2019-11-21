@@ -42,16 +42,19 @@ class UrlsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $url->setCreated(new \DateTime('now'));
-            $url->setCode(
-                $this->shortener->short(
-                    $form->get('link')->getData()
-                )
-            );
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($url);
             $entityManager->flush();
+
+            $url->setCode(
+                $this->shortener->short(
+                    $url->getId()
+                )
+            );
+            $entityManager->persist($url);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("urls");
         }
         return $this->render('urls/index.html.twig', [
             'urlsForm' => $form->createView()
