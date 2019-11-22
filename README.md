@@ -26,4 +26,11 @@ docker-compose exec web php bin/console make:entity
 docker-compose exec web php bin/console make:migration
 docker-compose exec web php bin/console doctrine:migrations:migrate
 
+docker-compose exec web php bin/console doctrine:database:create
+docker-compose exec web php bin/console doctrine:schema:create
+
+docker-compose exec web php bin/console doctrine:migrations:latest
+docker-compose exec web php bin/console doctrine:migrations:execute 20191122084001
+
+
 INSERT INTO url (link, code, created) VALUES ("https:\/\/www.di.fm\/", null, "2019-11-21 17:03:02")

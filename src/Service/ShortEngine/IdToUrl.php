@@ -71,13 +71,13 @@ class IdToUrl implements ShortInterface
         $id = 0;
         for ($i = 0; $i < strlen($code); $i++) {
             if ('a' <= $code[$i] && $code[$i] <= 'z') {
-                $id = $id*62 + $code[$i] - 'a';
+                $id = $id*62 + ord($code[$i]) - ord('a');
             }
             if ('A' <= $code[$i] && $code[$i] <= 'Z') {
-                $id = $id*62 + $code[$i] - 'A' + 26;
+                $id = $id*62 + ord($code[$i]) - ord('A') + 26;
             }
             if ('0' <= $code[$i] && $code[$i] <= '9') {
-                $id = $id*62 + $code[$i] - '0' + 52;
+                $id = $id*62 + ord($code[$i]) - ord('0') + 52;
             }
         }
         return $id;

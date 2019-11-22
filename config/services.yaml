@@ -28,3 +28,8 @@ services:
     App\Service\Shortener:
         class:   App\Service\Shortener
         factory: '@App\Service\InvokableShortenerFactory'
+
+    app.param_converter.code_converter:
+        class: App\Converter\CodeConverter
+        tags:
+            - { name: request.param_converter, converter: code_converter }

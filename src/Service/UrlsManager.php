@@ -8,6 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 class UrlsManager
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
     /**
