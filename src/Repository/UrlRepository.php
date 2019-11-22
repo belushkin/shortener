@@ -19,32 +19,15 @@ class UrlRepository extends ServiceEntityRepository
         parent::__construct($registry, Url::class);
     }
 
-    // /**
-    //  * @return Url[] Returns an array of Url objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findUrlsWithCount()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $conn = $this->getEntityManager()
+            ->getConnection();
 
-    /*
-    public function findOneBySomeField($value): ?Url
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sql = 'SELECT u.*, COUNT(m.id) as cnt from url as u JOIN meta as m ON u.id = m.url_id GROUP BY u.id ORDER BY u.id ASC';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
-    */
+
 }

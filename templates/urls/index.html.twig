@@ -20,7 +20,7 @@
                 <a href="{{ path('redirect', { 'code': url.code }) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ path('redirect', { 'code': url.code }) }}</h5>
-                        <small>{{ url.created|date("m/d/Y") }}</small>
+                        <small>{{ url.created|date("m/d/Y") }} ({{ url.cnt }})</small>
                     </div>
                     <p class="mb-1">{{ url.link }}</p>
                 </a>

@@ -31,7 +31,9 @@ class UrlsManager
 
     public function list()
     {
-        return $this->entityManager->getRepository(Url::class)->findAll();
+        return $this->entityManager
+            ->getRepository(Url::class)
+            ->findUrlsWithCount();
     }
 
     public function save(Url $url)
