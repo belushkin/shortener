@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Meta;
 use App\Entity\Url;
 use Doctrine\ORM\EntityManagerInterface;
 

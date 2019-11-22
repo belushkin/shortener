@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,9 +33,15 @@ class Url
      */
     private $created;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Meta", mappedBy="url", orphanRemoval=true)
+     */
+    private $metas;
+
     public function __construct()
     {
         $this->created = new \DateTime();
+        $this->metas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +81,37 @@ class Url
     public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Meta[]
+     */
+    public function getMetas(): Collection
+    {
+        return $this->metas;
+    }
+
+    public function addMeta(Meta $meta): self
+    {
+        if (!$this->metas->contains($meta)) {
+            $this->metas[] = $meta;
+            $meta->setUrl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeta(Meta $meta): self
+    {
+        if ($this->metas->contains($meta)) {
+            $this->metas->removeElement($meta);
+            // set the owning side to null (unless already changed)
+            if ($meta->getUrl() === $this) {
+                $meta->setUrl(null);
+            }
+        }
 
         return $this;
     }
