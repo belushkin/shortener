@@ -24,7 +24,7 @@ class UrlRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()
             ->getConnection();
 
-        $sql = 'SELECT u.*, COUNT(m.id) as cnt from url as u JOIN meta as m ON u.id = m.url_id GROUP BY u.id ORDER BY u.id ASC';
+        $sql = 'SELECT u.*, COUNT(m.id) as cnt from url as u LEFT JOIN meta as m ON u.id = m.url_id GROUP BY u.id ORDER BY u.id DESC';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
