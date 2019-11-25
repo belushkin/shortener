@@ -3,21 +3,19 @@
 namespace App\EventListener;
 
 use App\Entity\Meta;
+use App\Entity\Url;
 use App\Service\Shortener;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
-use App\Entity\Url;
 
 class MetaListener
 {
-
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
     /**
-     * @param EntityManagerInterface $entityManager
      * @param Shortener $shortener
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -25,6 +23,9 @@ class MetaListener
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param TerminateEvent $event
+     */
     public function onKernelTerminate(TerminateEvent $event)
     {
         /** @var Url $url */

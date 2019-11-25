@@ -2,11 +2,9 @@
 
 namespace App\Service;
 
-use App\Entity\Meta;
 use App\Entity\Url;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class UrlsManager
 {

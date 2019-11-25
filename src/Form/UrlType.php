@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\Url;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url as UrlConstraint;
 
@@ -18,7 +18,7 @@ class UrlType extends AbstractType
             ->add('link', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new UrlConstraint()
+                    new UrlConstraint(),
                 ],
             ])
         ;

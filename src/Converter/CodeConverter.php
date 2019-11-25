@@ -14,7 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CodeConverter implements ParamConverterInterface
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -25,10 +24,6 @@ class CodeConverter implements ParamConverterInterface
      */
     private $shortener;
 
-    /**
-     * @param EntityManagerInterface $entityManager
-     * @param Shortener $shortener
-     */
     public function __construct(EntityManagerInterface $entityManager, Shortener $shortener)
     {
         $this->entityManager = $entityManager;
@@ -40,8 +35,8 @@ class CodeConverter implements ParamConverterInterface
      *
      * Applies converting
      *
-     * @throws InvalidArgumentException  When route attributes are missing
-     * @throws NotFoundHttpException     When object not found
+     * @throws InvalidArgumentException When route attributes are missing
+     * @throws NotFoundHttpException    When object not found
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -50,7 +45,7 @@ class CodeConverter implements ParamConverterInterface
             throw new InvalidArgumentException('Route attribute is missing');
         }
 
-        $id  = $this->shortener->unshort($code);
+        $id = $this->shortener->unshort($code);
         $url = $this->entityManager->getRepository(Url::class)->find($id);
 
         if (null === $url) {
@@ -70,6 +65,6 @@ class CodeConverter implements ParamConverterInterface
             return false;
         }
 
-        return $configuration->getName() === "url";
+        return 'url' === $configuration->getName();
     }
 }

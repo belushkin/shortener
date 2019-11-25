@@ -29,8 +29,11 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.11.19",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.14",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
         "symfony/web-server-bundle": "4.3.*"
