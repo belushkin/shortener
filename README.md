@@ -5,14 +5,15 @@ You are supposed to create a simple URL shortener (think: bit.ly )
 | Task description  | Given estimate | Real estimate |
 | ------------- | ------------- | ------------- |
 | Investigation existing shortener solutions (shorting functions)  | Content Cell  | Content Cell  |
-| Create DB schema  | Content Cell  | Content Cell  |
-| Describe class relation  | Content Cell  | Content Cell  |
-| Create Dockerfile (Symfony 4) and tools | Content Cell  | Content Cell  |
-| Create Contoller  | Content Cell  | Content Cell  |
-| Create Entities  | Content Cell  | Content Cell  |
-| Create Form  | Content Cell  | Content Cell  |
-| Create Shortener Service  | Content Cell  | Content Cell  |
-| Integrate and test app  | Content Cell  | Content Cell  |
+| Create DB schema  | 30m  | 1h  |
+| Describe class relation  | 25m  | 25m  |
+| Create Dockerfile (Symfony 4) and tools | 15m  | 15m  |
+| Create Contollers  | 1h  | 2h  |
+| Create Entities  | 30m  | 1h  |
+| Create Form  | 30m  | 1h  |
+| Create Shortener Service  | 1h  | 1h  |
+| Integrate and test app  | 3h  | 3h  |
+| **Total**  | **7h**  | **9h**  |
 
 ## Resources I found and I would follow:
 - https://en.wikipedia.org/wiki/Bijection
