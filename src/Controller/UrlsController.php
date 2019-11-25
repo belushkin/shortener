@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Url;
+use App\Entity\User;
 use App\Form\UrlType;
 use App\Service\UrlsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,16 +36,19 @@ class UrlsController extends AbstractController
     {
         $url = new Url();
 
+        /** @var $user User */
+        $user = $this->getUser();
+
         $form = $this->createForm(UrlType::class, $url);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manager->save($url);
+            $this->manager->save($url, $user);
             return $this->redirectToRoute("urls");
         }
         return $this->render('urls/index.html.twig', [
             'urlsForm'  => $form->createView(),
-            'urls'      => $this->manager->list()
+            'urls'      => $this->manager->list($user)
         ]);
     }
 }

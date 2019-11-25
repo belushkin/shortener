@@ -4,7 +4,9 @@ namespace App\Service;
 
 use App\Entity\Meta;
 use App\Entity\Url;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class UrlsManager
 {
@@ -29,18 +31,19 @@ class UrlsManager
         $this->shortener = $shortener;
     }
 
-    public function list()
+    public function list(User $user = null)
     {
         return $this->entityManager
             ->getRepository(Url::class)
-            ->findUrlsWithCount();
+            ->findUrlsWithCount($user);
     }
 
-    public function save(Url $url)
+    public function save(Url $url, User $user = null)
     {
         $this->entityManager->persist($url);
         $this->entityManager->flush();
 
+        $url->setUser($user);
         $url->setCode(
             $this->shortener->short(
                 $url->getId()

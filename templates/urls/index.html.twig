@@ -3,53 +3,36 @@
 {% block title %}Urls shortener{% endblock %}
 
 {% block body %}
-    {% if app.user %}
-        <div id="container" class="container w-25 mt-5">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Home</li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_login') }}">Login</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_register') }}">Register</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_logout') }}">Logout</a></li>
-                </ol>
-            </nav>
-            <h1 class="h3 mb-3 font-weight-normal">Link shortener form:</h1>
-            {{ form_start(urlsForm) }}
-            <div class="form-group">
-                {{ form_label(urlsForm.link) }}
-                {{ form_widget(urlsForm.link) }}
-            </div>
-            <input class="btn btn-primary" type="submit">
-            {{ form_end(urlsForm) }}
+    <div id="container" class="container w-25 mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Home</li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_login') }}">Login</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_register') }}">Register</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_logout') }}">Logout</a></li>
+            </ol>
+        </nav>
+        <h1 class="h3 mb-3 font-weight-normal">Link shortener form:</h1>
+        {{ form_start(urlsForm) }}
+        <div class="form-group">
+            {{ form_label(urlsForm.link) }}
+            {{ form_widget(urlsForm.link) }}
         </div>
+        <input class="btn btn-primary" type="submit">
+        {{ form_end(urlsForm) }}
+    </div>
 
-        <div id="container" class="container w-25 mt-5">
-            <div class="list-group">
-                {% for url in urls %}
-                    <a href="{{ path('redirect', { 'code': url.code }) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ path('redirect', { 'code': url.code }) }}</h5>
-                            <small>{{ url.created|date("m/d/Y") }} ({{ url.cnt }})</small>
-                        </div>
-                        <p class="mb-1">{{ url.link }}</p>
-                    </a>
-                {% endfor %}
-            </div>
+    <div id="container" class="container w-25 mt-5">
+        <div class="list-group">
+            {% for url in urls %}
+                <a href="{{ path('redirect', { 'code': url[0].code }) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ path('redirect', { 'code': url[0].code }) }}</h5>
+                        <small>{{ url[0].created|date("m/d/Y") }} ({{ url['cnt'] }})</small>
+                    </div>
+                    <p class="mb-1">{{ url[0].link }}</p>
+                </a>
+            {% endfor %}
         </div>
-    {% else %}
-        <div class="container mt-5">
-            <div class="row">
-                <div class="column">
-                    <h1>Hello visitor! ✅</h1>
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{{ path('app_login') }}">Login</a></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{{ path('app_register') }}">Register</a></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{{ path('app_logout') }}">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-
+    </div>
 {% endblock %}

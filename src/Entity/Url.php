@@ -38,6 +38,11 @@ class Url
      */
     private $metas;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="urls")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -112,6 +117,18 @@ class Url
                 $meta->setUrl(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

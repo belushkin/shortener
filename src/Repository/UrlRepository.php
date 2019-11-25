@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Url;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,15 +20,26 @@ class UrlRepository extends ServiceEntityRepository
         parent::__construct($registry, Url::class);
     }
 
-    public function findUrlsWithCount()
+    public function findUrlsWithCount(User $user = null)
     {
-        $conn = $this->getEntityManager()
-            ->getConnection();
+        $query = $this->createQueryBuilder('url');
 
-        $sql = 'SELECT u.*, COUNT(m.id) as cnt from url as u LEFT JOIN meta as m ON u.id = m.url_id GROUP BY u.id ORDER BY u.id DESC';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $query
+            ->addSelect('COUNT(meta.id) as cnt')
+            ->leftJoin('url.metas', 'meta')
+            ->orderBy('url.id', 'DESC')
+            ->groupBy('url.id');
+
+        if ($user) {
+            $query->where('url.user = :val')
+            ->setParameter('val', $user);
+        } else {
+            $query->where('url.user IS NULL');
+        }
+
+        return $query
+            ->getQuery()
+            ->getResult();
     }
 
 }
