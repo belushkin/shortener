@@ -45,7 +45,6 @@ OS Linux
 ```bash
 git clone https://github.com/belushkin/shortener.git
 cd shortener; ./toolbox.sh up
-docker-compose exec web php bin/console doctrine:database:create
 docker-compose exec web php bin/console doctrine:schema:create
 ```
 
