@@ -20,6 +20,7 @@ You are supposed to create a simple URL shortener (think: bit.ly )
 - https://www.geeksforgeeks.org/how-to-design-a-tiny-url-or-url-shortener/
 - https://stackoverflow.com/questions/742013/how-do-i-create-a-url-shortener
 
+### How app does look like
 ![alt text](./assets/img/image.png)
 
 ### Requirements of the assessment:
