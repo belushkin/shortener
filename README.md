@@ -15,7 +15,7 @@ You are supposed to create a simple URL shortener (think: bit.ly )
 | Integrate and test app  | 3h  | 3h  |
 | **Total**  | **7h**  | **9h**  |
 
-## Resources I found and I would follow:
+### Resources I found and I would follow:
 - https://en.wikipedia.org/wiki/Bijection
 - https://www.geeksforgeeks.org/how-to-design-a-tiny-url-or-url-shortener/
 - https://stackoverflow.com/questions/742013/how-do-i-create-a-url-shortener
